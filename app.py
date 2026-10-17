@@ -64,7 +64,6 @@ if st.button("🔮 Predict Delivery Status"):
             st.success("✅ Great news! The delivery is predicted to be **ON TIME**.")
     except NameError:
         st.error("Model is not loaded properly. Please check your model file.")
-"""
 
 with open('app.py', 'w') as f:
     f.write(app_code)
