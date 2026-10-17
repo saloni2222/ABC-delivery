@@ -3,8 +3,11 @@ import pandas as pd
 import joblib as jb
 import numpy as np
 
-# Load the saved model
-model = joblib.load('best_svc_model.joblib')
+# Load the saved model safely using the aliased joblib 'jb'
+try:
+    model = jb.load('best_svc_model.joblib')
+except Exception as e:
+    st.error(f"Error loading the model file: {e}")
 
 # Set page configuration
 st.set_page_config(
@@ -53,9 +56,17 @@ st.markdown("--- ")
 
 # Predict delay status when button is clicked
 if st.button("🔮 Predict Delivery Status"):
-    prediction = model.predict(input_data)[0]
-    
-    if prediction == 1:
-        st.error("⚠️ Warning: The delivery is predicted to be **DELAYED**.")
-    else:
-        st.success("✅ Great news! The delivery is predicted to be **ON TIME**.")
+    try:
+        prediction = model.predict(input_data)[0]
+        if prediction == 1:
+            st.error("⚠️ Warning: The delivery is predicted to be **DELAYED**.")
+        else:
+            st.success("✅ Great news! The delivery is predicted to be **ON TIME**.")
+    except NameError:
+        st.error("Model is not loaded properly. Please check your model file.")
+"""
+
+with open('app.py', 'w') as f:
+    f.write(app_code)
+
+print("app.py has been updated successfully with 'import joblib as jb'!")
