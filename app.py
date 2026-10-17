@@ -65,7 +65,5 @@ if st.button("🔮 Predict Delivery Status"):
     except NameError:
         st.error("Model is not loaded properly. Please check your model file.")
 
-with open('app.py', 'w') as f:
-    f.write(app_code)
 
-print("app.py has been updated successfully with 'import joblib as jb'!")
+
